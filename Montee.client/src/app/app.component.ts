@@ -33,5 +33,5 @@ export class AppComponent implements OnInit {
     );
   }
 
-  title = 'montey.client';
+  title = 'Montee.client';
 }

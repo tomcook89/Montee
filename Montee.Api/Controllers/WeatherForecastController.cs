@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Montey.Server.Controllers
+namespace Montee.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

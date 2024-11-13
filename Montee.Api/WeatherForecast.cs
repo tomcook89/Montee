@@ -1,4 +1,4 @@
-namespace Montey.Server
+namespace Montee.Api.Controllers
 {
     public class WeatherForecast
     {

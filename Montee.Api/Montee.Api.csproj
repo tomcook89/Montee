@@ -4,10 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <SpaRoot>..\montey.client</SpaRoot>
+    <SpaRoot>..\Montee.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
@@ -17,9 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\montey.client\montey.client.esproj">
+    <ProjectReference Include="..\Montee.client\Montee.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
+    <ProjectReference Include="..\Montee.Infra.IoC\Montee.Infra.IoC.csproj" />
+    </ItemGroup>
 
 </Project>

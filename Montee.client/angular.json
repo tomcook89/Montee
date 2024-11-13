@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "montey.client": {
+    "Montee.client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/montey.client",
+            "outputPath": "dist/Montee.client",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "montey.client:build:production"
+              "buildTarget": "Montee.client:build:production"
             },
             "development": {
-              "buildTarget": "montey.client:build:development"
+              "buildTarget": "Montee.client:build:development"
             }
           },
           "defaultConfiguration": "development",

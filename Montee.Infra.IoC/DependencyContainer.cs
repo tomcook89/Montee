@@ -14,7 +14,6 @@ public class DependencyContainer
         //Application Layer 
 
         //Infra.Data Layer
-        //services.AddScoped<ICourseRepository, CourseRepository>();
         //services.AddScoped<DBContext>();
     }
 

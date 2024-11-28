@@ -5,8 +5,6 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Montee.Api", "Montee.Api\Montee.Api.csproj", "{2B2C01CE-042B-419B-BF29-1A8BA8372499}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Montee.client", "Montee.client\Montee.client.esproj", "{3C9633B4-0079-41C3-A731-EDE8099D4E19}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Montee.Domain", "Montee.Domain\Montee.Domain.csproj", "{3D6A49A4-C9E0-4CB7-8E80-8A9F44AB3BCC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Montee.Infra.Data", "Montee.Infra.Data\Montee.Infra.Data.csproj", "{5C50D214-AF29-4D49-A1ED-37898DEABED1}"
@@ -23,12 +21,6 @@ Global
 		{2B2C01CE-042B-419B-BF29-1A8BA8372499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B2C01CE-042B-419B-BF29-1A8BA8372499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B2C01CE-042B-419B-BF29-1A8BA8372499}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C9633B4-0079-41C3-A731-EDE8099D4E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C9633B4-0079-41C3-A731-EDE8099D4E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C9633B4-0079-41C3-A731-EDE8099D4E19}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{3C9633B4-0079-41C3-A731-EDE8099D4E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C9633B4-0079-41C3-A731-EDE8099D4E19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C9633B4-0079-41C3-A731-EDE8099D4E19}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{3D6A49A4-C9E0-4CB7-8E80-8A9F44AB3BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D6A49A4-C9E0-4CB7-8E80-8A9F44AB3BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D6A49A4-C9E0-4CB7-8E80-8A9F44AB3BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU

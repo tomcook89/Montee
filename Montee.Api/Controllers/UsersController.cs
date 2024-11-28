@@ -10,7 +10,7 @@ namespace Montee.Api.Controllers;
 public class UsersController(DBContext context) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppUser>> GetUsers()
+    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
         var users = await context.Users.ToListAsync();
 

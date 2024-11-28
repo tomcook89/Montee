@@ -24,9 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Montee.client\Montee.client.esproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\Montee.Infra.Data\Montee.Infra.Data.csproj" />
     <ProjectReference Include="..\Montee.Infra.IoC\Montee.Infra.IoC.csproj" />
     </ItemGroup>

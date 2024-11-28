@@ -14,7 +14,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<DBContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
+    b => b.MigrationsAssembly("Montee.Infra.Data"));
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

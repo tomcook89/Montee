@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Montee.Infra.Data.Montee.Montee.Infra.Data.Migrations
+namespace Montee.Infra.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -7,10 +7,10 @@ using Montee.Infra.Data.Context;
 
 #nullable disable
 
-namespace Montee.Infra.Data.Montee.Montee.Infra.Data.Migrations
+namespace Montee.Infra.Data.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20241113192938_InitialCreate")]
+    [Migration("20241128180454_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

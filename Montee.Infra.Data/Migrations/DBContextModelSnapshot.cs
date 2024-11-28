@@ -6,7 +6,7 @@ using Montee.Infra.Data.Context;
 
 #nullable disable
 
-namespace Montee.Infra.Data.Montee.Montee.Infra.Data.Migrations
+namespace Montee.Infra.Data.Migrations
 {
     [DbContext(typeof(DBContext))]
     partial class DBContextModelSnapshot : ModelSnapshot

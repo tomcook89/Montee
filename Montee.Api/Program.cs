@@ -1,42 +1,25 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Montee.Application.Interfaces;
-using Montee.Application.Services;
-using Montee.Infra.Data.Context;
 using Montee.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Use Autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
+// Add basic services
 builder.Services.AddControllers();
-
-builder.Services.AddDbContext<DBContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("Montee.Infra.Data"));
-});
-
-builder.WebHost.ConfigureKestrel((context, options) =>
-{
-    options.Configure(context.Configuration.GetSection("Kestrel"));
-});
-
-builder.Services.AddCors();
-builder.Services.AddScoped<ITokenService, TokenService>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register modules with Autofac
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new CoreModule());
+    containerBuilder.RegisterModule(new InfrastructureModule(builder.Configuration));
+    containerBuilder.RegisterModule(new AuthenticationModule(builder.Configuration));
+    containerBuilder.RegisterModule(new WebModule());
 });
-
 
 var app = builder.Build();
 
@@ -44,6 +27,7 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -51,15 +35,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
-    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
-
+app.UseCors("DefaultPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.MapFallbackToFile("/index.html");
 
 app.Run();

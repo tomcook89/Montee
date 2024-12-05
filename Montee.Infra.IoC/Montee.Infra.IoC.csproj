@@ -9,9 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.1.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Montee.Application\Montee.Application.csproj" />
     <ProjectReference Include="..\Montee.Infra.Data\Montee.Infra.Data.csproj" />
   </ItemGroup>
 

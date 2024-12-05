@@ -5,9 +5,8 @@ using Montee.Infra.Data.Context;
 
 namespace Montee.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class UsersController(DBContext context) : ControllerBase
+
+public class UsersController(DBContext context) : BaseApiController
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()

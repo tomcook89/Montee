@@ -1,6 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Montee.Application.Interfaces;
+using Montee.Application.Services;
 using Montee.Infra.Data.Context;
 using Montee.Infra.IoC;
 
@@ -17,6 +19,14 @@ builder.Services.AddDbContext<DBContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("Montee.Infra.Data"));
 });
+
+builder.WebHost.ConfigureKestrel((context, options) =>
+{
+    options.Configure(context.Configuration.GetSection("Kestrel"));
+});
+
+builder.Services.AddCors();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +52,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

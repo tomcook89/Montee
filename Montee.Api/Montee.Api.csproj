@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.1.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Montee.Application\Montee.Application.csproj" />
     <ProjectReference Include="..\Montee.Infra.Data\Montee.Infra.Data.csproj" />
     <ProjectReference Include="..\Montee.Infra.IoC\Montee.Infra.IoC.csproj" />
     </ItemGroup>

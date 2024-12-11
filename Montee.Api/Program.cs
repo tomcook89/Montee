@@ -4,7 +4,6 @@ using Montee.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Use Autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 // Add basic services
@@ -27,7 +26,6 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

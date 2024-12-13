@@ -20,7 +20,7 @@
         }
 
         @if (accountService.currentUser()) {
-            <div dropdown class="dropdown">
+            <div dropdown class="dropdown ms-auto">
                 <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">Welcome user</a>
                 <div *dropdownMenu class="dropdown-menu">
                     <a class="dropdown-item">Edit profile</a>
@@ -31,7 +31,7 @@
         }
         
         @if (!accountService.currentUser()) {
-            <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex" role="login">
+            <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex ms-auto" role="login">
                 <input name="username" [(ngModel)]="model.username" class="form-control me-2" placeholder="Username" aria-label="Search">
                 <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="Password" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Login</button>

@@ -54,7 +54,7 @@ public class AccountController(DBContext context, ITokenService tokenService //U
         var user = await context.Users.FirstOrDefaultAsync(x =>
             x.UserName == loginDto.Username.ToLower());
 
-        if (user == null || user.UserName == null) return Unauthorized("Invalid username");
+        if (user == null || user.UserName == null) return Unauthorized(new { message = "Invalid username" });
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -62,7 +62,7 @@ public class AccountController(DBContext context, ITokenService tokenService //U
 
         for (int i = 0; i < computedHash.Length; i++)
         {
-            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized(new { message = "Invalid password" });
         }
 
 

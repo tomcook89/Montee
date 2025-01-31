@@ -5,7 +5,10 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { ResMortgagesComponent } from './res-mortgages/res-mortgages.component';
 import { BuyToLetComponent } from './buy-to-let/buy-to-let.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { authGuard } from './_guards/auth.guard';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -18,8 +21,11 @@ export const routes: Routes = [
             {path: 'members/:id', component: MemberDetailComponent},
             {path: 'lists', component: ListsComponent},
             {path: 'res-mortgages', component: ResMortgagesComponent},
-            {path: 'buy-to-let', component: BuyToLetComponent}
+            {path: 'buy-to-let', component: BuyToLetComponent},
         ]
     },
+    {path: 'errors', component: TestErrorsComponent},
+    {path: 'not-found', component: NotFoundComponent},
+    {path: 'server-error', component: ServerErrorComponent},
     {path: '**', component: HomeComponent, pathMatch: 'full'}
 ];

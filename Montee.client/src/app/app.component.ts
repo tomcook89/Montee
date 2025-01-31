@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   }
 
   setCurrentUser(){
+    if (typeof window === 'undefined') return;
     const userString = localStorage.getItem('user');
     if(!userString) return;
     const user = JSON.parse(userString);

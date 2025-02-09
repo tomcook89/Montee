@@ -1,0 +1,38 @@
+[
+  {
+    "Id": "67a8dfe0908642c4ab197810",
+    "UserName": "Weaver",
+    "DateOfBirth": "2012-12-01",
+    "LastActive": "2024-05-07"
+  },
+  {
+    "Id": "67a8dfe0e3dfc33f3ae7046c",
+    "UserName": "Cohen",
+    "DateOfBirth": "1978-03-29",
+    "LastActive": "2024-05-18"
+  },
+  {
+    "Id": "67a8dfe0a69246f16d0a8328",
+    "UserName": "Edwards",
+    "DateOfBirth": "2004-05-18",
+    "LastActive": "2024-05-09"
+  },
+  {
+    "Id": "67a8e01baaf55a272cf90097",
+    "UserName": "Jewel",
+    "DateOfBirth": "1972-12-15",
+    "LastActive": "2024-06-16"
+  },
+  {
+    "Id": "67a8e01bb3506b071631802c",
+    "UserName": "Deanna",
+    "DateOfBirth": "2014-01-14",
+    "LastActive": "2024-05-05"
+  },
+  {
+    "Id": "67a8e01b4e895cad7f3b38f5",
+    "UserName": "Pauline",
+    "DateOfBirth": "2004-11-01",
+    "LastActive": "2024-05-15"
+  }
+]

@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Montee.Domain.Interfaces;
 using Montee.Infra.Data.Context;
+using Montee.Infra.Data.Repositories;
 
 namespace Montee.Infra.IoC;
 
@@ -19,5 +21,6 @@ public class InfrastructureModule(IConfiguration configuration) : Module
         }).AsSelf().InstancePerLifetimeScope();
 
         // Register repositories
+        builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
     }
 }

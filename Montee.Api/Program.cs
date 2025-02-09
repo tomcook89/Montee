@@ -1,6 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Montee.Api.Middleware;
+using Montee.Domain.Models;
+using Montee.Infra.Data;
+using Montee.Infra.Data.Context;
 using Montee.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +26,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new AuthenticationModule(builder.Configuration));
     containerBuilder.RegisterModule(new WebModule());
 });
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -41,5 +49,22 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapFallbackToFile("/index.html");
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<DBContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    //var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+    await context.Database.MigrateAsync();
+    //await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
+    await Seed.SeedUsers(userManager /*roleManager*/);
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred during migration");
+}
 
 app.Run();

@@ -1,0 +1,9 @@
+[
+  '{{repeat(3)}}',
+  {
+    Id: '{{objectId()}}',
+    UserName: '{{firstName("male")}}',
+    DateOfBirth: '{{date(new Date(1970,0,1), new Date (2020,5,30), "YYYY-MM-dd")}}',
+    LastActive: '{{date(new Date(2024,4,1), new Date (2024,5,30), "YYYY-MM-dd")}}',
+  }
+]

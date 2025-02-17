@@ -5,6 +5,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { ResMortgagesComponent } from './res-mortgages/res-mortgages.component';
 import { BuyToLetComponent } from './buy-to-let/buy-to-let.component';
+import { CalculatorsComponent } from './calculators/calculators/calculators.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { authGuard } from './_guards/auth.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
@@ -24,6 +25,7 @@ export const routes: Routes = [
             {path: 'buy-to-let', component: BuyToLetComponent},
         ]
     },
+    {path: 'calculators', component: CalculatorsComponent},
     {path: 'errors', component: TestErrorsComponent},
     {path: 'not-found', component: NotFoundComponent},
     {path: 'server-error', component: ServerErrorComponent},

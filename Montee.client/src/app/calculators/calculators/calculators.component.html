@@ -1,1 +1,23 @@
-<p>calculators works!</p>
+<div class="calculator-container">
+  <h1>First-Time Buyer Mortgage Calculators</h1>
+  <p>Use these tools to estimate your mortgage, stamp duty, and total purchase costs.</p>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button [class.active]="activeTab === 'mortgage'" (click)="setActiveTab('mortgage')">Mortgage Calculator</button>
+    <button [class.active]="activeTab === 'stampDuty'" (click)="setActiveTab('stampDuty')">Stamp Duty Calculator</button>
+    <button [class.active]="activeTab === 'purchaseCost'" (click)="setActiveTab('purchaseCost')">Purchase Cost Calculator</button>
+  </div>
+
+  <div class="tab-content">
+    @if (activeTab === 'mortgage') {
+      <app-mortgage-calculator></app-mortgage-calculator>
+    }
+    @if (activeTab === 'stampDuty') {
+      <app-stamp-duty-calculator></app-stamp-duty-calculator>
+    }
+    @if (activeTab === 'purchaseCost') {
+      <app-purchase-cost-calculator></app-purchase-cost-calculator>
+    }
+  </div>
+</div>

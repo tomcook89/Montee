@@ -36,13 +36,17 @@ export class NavComponent {
   }
 
   onMouseEnter() {
-    clearTimeout(this.hoverTimeout); // Prevent hiding while hovering
+    clearTimeout(this.hoverTimeout);
     this.showDropdown = true;
   }
 
   onMouseLeave() {
     this.hoverTimeout = setTimeout(() => {
       this.showDropdown = false;
-    }, 200); // Small delay to allow smooth transition
+    }, 200);
+  }
+
+  hideDropdown() {
+    this.showDropdown = false;
   }
 }

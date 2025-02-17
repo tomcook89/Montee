@@ -1,0 +1,20 @@
+<div class="calculator">
+  <h3>Mortgage Calculator</h3>
+  
+  <form [formGroup]="mortgageForm" (ngSubmit)="calculate()">
+    <label>Loan Amount (£):</label>
+    <input type="number" formControlName="loanAmount">
+    
+    <label>Interest Rate (%):</label>
+    <input type="number" formControlName="interestRate">
+    
+    <label>Loan Term (Years):</label>
+    <input type="number" formControlName="loanTerm">
+    
+    <button type="submit">Calculate</button>
+  </form>
+
+  @if (monthlyPayment !== null) {
+    <p>Your estimated monthly payment: <strong>£{{ monthlyPayment.toFixed(2) }}</strong></p>
+  }
+</div>

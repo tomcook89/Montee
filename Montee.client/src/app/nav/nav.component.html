@@ -24,14 +24,16 @@
         <li class="nav-item dropdown position-static"
             (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
           <a class="nav-link" role="button">Calculators</a>
-
+      
           <div class="dropdown-menu calculator-dropdown"
                [ngClass]="{'d-block': showDropdown}"
                (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="container">
               <div class="row">
                 <div class="col-12">
-                  <a class="dropdown-item">First-time buyer mortgage calculators</a>
+                  <a class="dropdown-item" routerLink="/calculators" routerLinkActive="active" (click)="hideDropdown()">
+                    First-time buyer mortgage calculators
+                  </a>                  
                   <a class="dropdown-item">Buy-to-let mortgage calculators</a>
                 </div>
               </div>
@@ -39,7 +41,7 @@
           </div>
         </li>
       </ul>
-
+      
       @if (accountService.currentUser()) {
       <div dropdown class="dropdown ms-3">
         <a dropdownToggle class="text-light text-decoration-none">

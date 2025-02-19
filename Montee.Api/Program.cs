@@ -47,8 +47,13 @@ app.UseHttpsRedirection();
 app.UseCors("DefaultPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapFallbackToFile("/index.html");
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

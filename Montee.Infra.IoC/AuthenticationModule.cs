@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Montee.Domain.Models;
+using Montee.Infra.Data.Context;
 
 namespace Montee.Infra.IoC;
 
@@ -14,6 +17,10 @@ public class AuthenticationModule(IConfiguration configuration) : Module
     {
         var services = new ServiceCollection();
         var tokenKey = configuration["TokenKey"] ?? throw new Exception("TokenKey not found");
+
+        services.AddIdentity<AppUser, IdentityRole<int>>()
+            .AddEntityFrameworkStores<DBContext>()
+            .AddDefaultTokenProviders();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

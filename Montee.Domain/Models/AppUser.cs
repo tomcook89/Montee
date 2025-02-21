@@ -1,10 +1,9 @@
-﻿namespace Montee.Domain.Models;
-//using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class AppUser
+namespace Montee.Domain.Models;
+
+public class AppUser : IdentityUser<int>
 {
-    public int Id { get; set; }
-    public required string UserName { get; set; }
     public byte[] PasswordHash { get; set; } = [];
     public byte[] PasswordSalt { get; set; } = [];
     public DateOnly DateOfBirth { get; set; }

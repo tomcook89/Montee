@@ -1,6 +1,6 @@
 import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AccountsService } from '../_services/accounts.service';
+import { AccountService } from '../_services/account.service';
 import { response } from 'express';
 import { ToastrService } from 'ngx-toastr';
 
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  private accountService = inject(AccountsService);
+  private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
   cancelRegister = output<boolean>();
   model: any = {}

@@ -30,4 +30,8 @@
     <ProjectReference Include="..\Montee.Infra.IoC\Montee.Infra.IoC.csproj" />
     </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

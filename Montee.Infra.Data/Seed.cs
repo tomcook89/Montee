@@ -1,19 +1,24 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Montee.Domain.Models;
+using System.Text.Json;
 
 namespace Montee.Infra.Data;
 
 public class Seed
 {
-    public static async Task SeedUsers(UserManager<AppUser> userManager /*RoleManager<AppRole> roleManager*/)
+    public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
     {
         if (await userManager.Users.AnyAsync()) return;
 
-        var userData = await File.ReadAllTextAsync("Montee.Infra.Data/UserSeedData.json");
+        var path = Path.Combine(AppContext.BaseDirectory, "UserSeedData.json");
+
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException($"Could not find UserSeedData.json at {path}");
+        }
+
+        var userData = await File.ReadAllTextAsync(path);
 
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
@@ -21,17 +26,17 @@ public class Seed
 
         if (users == null) return;
 
-        //var roles = new List<AppRole>
-        //{
-        //    new() {Name = "Member"},
-        //    new() {Name = "Admin"},
-        //    new() {Name = "Moderator"},
-        //};
+        var roles = new List<AppRole>
+        {
+            new() {Name = "Member"},
+            new() {Name = "Admin"},
+            new() {Name = "Moderator"},
+        };
 
-        //foreach (var role in roles)
-        //{
-        //    await roleManager.CreateAsync(role);
-        //}
+        foreach (var role in roles)
+        {
+            await roleManager.CreateAsync(role);
+        }
 
         foreach (var user in users)
         {
@@ -46,6 +51,6 @@ public class Seed
         };
 
         await userManager.CreateAsync(admin, "Pa$$w0rd");
-        await userManager.AddToRolesAsync(admin, ["Admin", "Moderator"]);
+        await userManager.AddToRolesAsync(admin, ["Admin", "Member"]);
     }
 }

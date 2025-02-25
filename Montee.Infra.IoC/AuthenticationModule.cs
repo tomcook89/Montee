@@ -16,15 +16,20 @@ public class AuthenticationModule(IConfiguration configuration) : Module
     protected override void Load(ContainerBuilder builder)
     {
         var services = new ServiceCollection();
-        var tokenKey = configuration["TokenKey"] ?? throw new Exception("TokenKey not found");
-
-        services.AddIdentity<AppUser, IdentityRole<int>>()
-            .AddEntityFrameworkStores<DBContext>()
-            .AddDefaultTokenProviders();
+        
+        services.AddIdentityCore<AppUser>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+            .AddRoles<AppRole>()
+            .AddRoleManager<RoleManager<AppRole>>()
+            .AddEntityFrameworkStores<DBContext>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
+                var tokenKey = configuration["TokenKey"] ?? throw new Exception("TokenKey not found");
+
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -33,6 +38,9 @@ public class AuthenticationModule(IConfiguration configuration) : Module
                     ValidateAudience = false
                 };
             });
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
 
         builder.Populate(services);
     }

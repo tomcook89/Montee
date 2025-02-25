@@ -9,9 +9,9 @@ using Montee.Application.Interfaces;
 
 namespace Montee.Application.Services;
 
-public class TokenService(IConfiguration config) : ITokenService //UserManager<AppUser> userManager
+public class TokenService(IConfiguration config, UserManager<AppUser> userManager) : ITokenService
 {
-    public string CreateToken(AppUser user)
+    public async Task<string> CreateToken(AppUser user)
     {
         var tokenKey = config["TokenKey"] ?? throw new Exception("Cannot access tokenKey from appsettings");
         if (tokenKey.Length < 64) throw new Exception("Your tokenKey needs to be longer");
@@ -25,9 +25,9 @@ public class TokenService(IConfiguration config) : ITokenService //UserManager<A
             new(ClaimTypes.Name, user.UserName)
         };
 
-        //var roles = await userManager.GetRolesAsync(user);
+        var roles = await userManager.GetRolesAsync(user);
 
-        //claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

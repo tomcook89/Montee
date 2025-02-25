@@ -2,7 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from "./nav/nav.component";
-import { AccountsService } from './_services/accounts.service';
+import { AccountService } from './_services/account.service';
 import { HomeComponent } from "./home/home.component";
 
 @Component({
@@ -13,7 +13,7 @@ import { HomeComponent } from "./home/home.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  private accountService = inject(AccountsService)
+  private accountService = inject(AccountService)
 
   ngOnInit(): void {
     this.setCurrentUser();

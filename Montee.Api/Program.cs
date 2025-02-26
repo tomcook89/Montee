@@ -13,12 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(int.Parse(port));
-});
+builder.WebHost.UseUrls($"http://*:{port}");
 
 // Add basic services
 builder.Services.AddControllers();
@@ -59,24 +56,26 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.MapControllers();
-app.MapFallbackToFile("/index.html");
 app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-try
+if (app.Environment.IsDevelopment())
 {
-    var context = services.GetRequiredService<DBContext>();
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
-    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-    await context.Database.MigrateAsync();
-    //await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
-    await Seed.SeedUsers(userManager , roleManager);
-}
-catch (Exception ex)
-{
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred during migration");
+    try
+    {
+        var context = services.GetRequiredService<DBContext>();
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+        await context.Database.MigrateAsync();
+        //await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
+        await Seed.SeedUsers(userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred during migration");
+    }
 }
 
 app.Run();

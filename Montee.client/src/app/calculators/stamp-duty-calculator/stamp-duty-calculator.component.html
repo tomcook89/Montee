@@ -1,1 +1,30 @@
-<p>stamp-duty-calculator works!</p>
+<div class="calculator">
+  <form [formGroup]="stampDutyForm">
+    <div class="form-container">
+      <div class="form-group">
+        <label>Reason for buying property:</label>
+        <select formControlName="reasonForBuying">
+          <option value="firstTimeBuyer">First-Time Buyer</option>
+          <option value="homeMover">Home Mover</option>
+          <option value="buyToLet">Buy-to-Let/Second Home</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Property Price (£):</label>
+        <input type="number" formControlName="propertyPrice" [placeholder]="formattedPlaceholders.propertyPrice">
+      </div>
+    </div>
+  </form>
+
+  <div class="result-container">
+    <div class="result-left">
+      <p>Up to 31 March 2025</p>
+      <h2>£{{ stampDutyCurrent | number:'1.0-0' }}</h2>
+    </div>
+    <div class="result-right">
+      <p>From 1 April 2025</p>
+      <h2>£{{ stampDutyFuture | number:'1.0-0' }}</h2>
+    </div>
+  </div>
+</div>

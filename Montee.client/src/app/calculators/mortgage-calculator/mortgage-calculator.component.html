@@ -3,37 +3,35 @@
     <div class="form-container">
       <div class="form-group">
         <label>Purchase Price (£):</label>
-        <input type="number" formControlName="purchasePrice">
+        <input type="number" formControlName="purchasePrice" [placeholder]="formattedPlaceholders.purchasePrice">
       </div>
 
       <div class="form-group">
         <label>Deposit Amount (£):</label>
-        <input type="number" formControlName="depositAmount">
+        <input type="number" formControlName="depositAmount" [placeholder]="formattedPlaceholders.depositAmount">
       </div>
 
       <div class="form-group">
         <label>Interest Rate (%):</label>
-        <input type="number" formControlName="interestRate" step="0.1">
+        <input type="number" formControlName="interestRate" step="0.1" [placeholder]="formattedPlaceholders.interestRate">
       </div>
 
       <div class="form-group">
         <label>Repayment Period (Years):</label>
-        <input type="number" formControlName="loanTerm">
+        <input type="number" formControlName="loanTerm" [placeholder]="formattedPlaceholders.loanTerm">
       </div>
     </div>
   </form>
 
-  @if (monthlyPayment !== null) {
-    <div class="result-container">
-      <div class="result-left">
-        <p>Monthly Payment</p>
-        <h2>£{{ monthlyPayment.toFixed(2) }}</h2>
-      </div>
-      <div class="result-right">
-        <p>Borrowing <strong>£{{ mortgageForm.value.purchasePrice - mortgageForm.value.depositAmount }}</strong> 
-        and repaying over <strong>{{ mortgageForm.value.loanTerm }} years</strong> 
-        with a <strong>{{ mortgageForm.value.interestRate }}%</strong> interest rate.</p>
-      </div>
+  <div class="result-container" *ngIf="monthlyPayment !== null">
+    <div class="result-left">
+      <p>Monthly Payment</p>
+      <h2>£{{ monthlyPayment | number:'1.0-0' }}</h2>
     </div>
-  }
+    <div class="result-right">
+      <p>Borrowing <strong>£{{ mortgageForm.value.purchasePrice - mortgageForm.value.depositAmount | number:'1.0-0' }}</strong> 
+      and repaying over <strong>{{ mortgageForm.value.loanTerm }}</strong> years 
+      with a <strong>{{ mortgageForm.value.interestRate }}%</strong> interest rate.</p>
+    </div>
+  </div>
 </div>

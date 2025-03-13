@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NumberFormatService } from '../../_services/number-format.service';
 import { StampDutyService } from '../../_services/stamp-duty.service';
 
 @Component({
@@ -8,39 +9,65 @@ import { StampDutyService } from '../../_services/stamp-duty.service';
   templateUrl: './stamp-duty-calculator.component.html',
   styleUrls: ['./stamp-duty-calculator.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  providers: [DecimalPipe]
+  imports: [CommonModule, ReactiveFormsModule]
 })
-export class StampDutyCalculatorComponent {
+export class StampDutyCalculatorComponent implements OnInit {
   stampDutyForm: FormGroup;
   stampDutyCurrent: number = 0;
   stampDutyFuture: number = 0;
-  formattedPlaceholders: { propertyPrice: string };
+  formattedPlaceholders: { [key: string]: string } = {};
 
-  constructor(private fb: FormBuilder, private stampDutyService: StampDutyService, private decimalPipe: DecimalPipe) {
+  constructor(
+    private fb: FormBuilder,
+    private numberFormatService: NumberFormatService, 
+    private stampDutyService: StampDutyService
+  ) {
     this.stampDutyForm = this.fb.group({
-      reasonForBuying: ['firstTimeBuyer'],
-      propertyPrice: [250000]
+      reasonForBuying: ['firstTimeBuyer', [Validators.required]],
+      propertyPrice: [250000, [Validators.required]]
     });
 
-    this.formattedPlaceholders = {
-      propertyPrice: this.formatNumber(250000)
-    };
+    this.formatPlaceholders();
+  }
+
+  ngOnInit(): void {
+    this.formatInitialValues();
+    this.calculateStampDuty();
 
     this.stampDutyForm.valueChanges.subscribe(() => {
       this.calculateStampDuty();
+    });
+  }
+
+  private formatPlaceholders() {
+    Object.keys(this.stampDutyForm.controls).forEach(field => {
+      const value = this.stampDutyForm.get(field)?.value;
+      this.formattedPlaceholders[field] = this.numberFormatService.formatNumber(value);
+    });
+  }
+
+  private formatInitialValues() {
+    Object.keys(this.stampDutyForm.controls).forEach(field => {
+      const value = this.stampDutyForm.get(field)?.value;
+      if (typeof value === 'number') {
+        this.stampDutyForm.patchValue({ [field]: this.numberFormatService.formatNumber(value) }, { emitEvent: false });
+      }
     });
 
     this.calculateStampDuty();
   }
 
   calculateStampDuty() {
-    const { reasonForBuying, propertyPrice } = this.stampDutyForm.value;
-    this.stampDutyCurrent = this.stampDutyService.calculateStampDuty(propertyPrice, reasonForBuying, true);
-    this.stampDutyFuture = this.stampDutyService.calculateStampDuty(propertyPrice, reasonForBuying, false);
+    const propertyPrice = this.numberFormatService.parseNumber(this.stampDutyForm.get('propertyPrice')?.value);
+    const reason = this.stampDutyForm.get('reasonForBuying')?.value;
+    this.stampDutyCurrent = this.stampDutyService.calculateStampDuty(propertyPrice, reason, true);
+    this.stampDutyFuture = this.stampDutyService.calculateStampDuty(propertyPrice, reason, false);
   }
 
-  formatNumber(value: number): string {
-    return this.decimalPipe.transform(value, '1.0-0') ?? '';
+  formatInput(event: any, field: string) {
+    const value = this.numberFormatService.parseNumber(event.target.value);
+    this.stampDutyForm.patchValue({ [field]: this.numberFormatService.formatNumber(value) }, { emitEvent: false });
+    event.target.value = this.numberFormatService.formatNumber(value);
+    this.calculateStampDuty();
   }
 }

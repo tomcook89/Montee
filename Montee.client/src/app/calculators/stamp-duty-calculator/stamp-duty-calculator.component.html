@@ -2,7 +2,7 @@
   <form [formGroup]="stampDutyForm">
     <div class="form-container">
       <div class="form-group">
-        <label>Reason for buying property:</label>
+        <label>Reason for Buying Property:</label>
         <select formControlName="reasonForBuying">
           <option value="firstTimeBuyer">First-Time Buyer</option>
           <option value="homeMover">Home Mover</option>
@@ -12,7 +12,9 @@
 
       <div class="form-group">
         <label>Property Price (£):</label>
-        <input type="number" formControlName="propertyPrice" [placeholder]="formattedPlaceholders.propertyPrice">
+        <input type="text" formControlName="propertyPrice" 
+               [placeholder]="formattedPlaceholders['propertyPrice']" 
+               (input)="formatInput($event, 'propertyPrice')">
       </div>
     </div>
   </form>

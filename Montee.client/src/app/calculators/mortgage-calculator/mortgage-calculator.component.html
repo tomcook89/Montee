@@ -3,35 +3,52 @@
     <div class="form-container">
       <div class="form-group">
         <label>Purchase Price (£):</label>
-        <input type="number" formControlName="purchasePrice" [placeholder]="formattedPlaceholders.purchasePrice">
+        <input type="text" formControlName="purchasePrice"
+               [placeholder]="formattedPlaceholders['purchasePrice']"
+               [value]="mortgageForm.get('purchasePrice')?.value || ''"
+               (input)="formatInput($event, 'purchasePrice')">
       </div>
 
       <div class="form-group">
         <label>Deposit Amount (£):</label>
-        <input type="number" formControlName="depositAmount" [placeholder]="formattedPlaceholders.depositAmount">
+        <input type="text" formControlName="depositAmount"
+               [placeholder]="formattedPlaceholders['depositAmount']"
+               [value]="mortgageForm.get('depositAmount')?.value || ''"
+               (input)="formatInput($event, 'depositAmount')">
       </div>
 
       <div class="form-group">
         <label>Interest Rate (%):</label>
-        <input type="number" formControlName="interestRate" step="0.1" [placeholder]="formattedPlaceholders.interestRate">
+        <input type="text" formControlName="interestRate"
+               [placeholder]="formattedPlaceholders['interestRate']"
+               [value]="mortgageForm.get('interestRate')?.value || ''"
+               (input)="formatInput($event, 'interestRate')">
       </div>
 
       <div class="form-group">
-        <label>Repayment Period (Years):</label>
-        <input type="number" formControlName="loanTerm" [placeholder]="formattedPlaceholders.loanTerm">
+        <label>Repayment Period (years):</label>
+        <input type="text" formControlName="loanTerm"
+               [placeholder]="formattedPlaceholders['loanTerm']"
+               [value]="mortgageForm.get('loanTerm')?.value || ''"
+               (input)="formatInput($event, 'loanTerm')">
       </div>
     </div>
   </form>
 
-  <div class="result-container" *ngIf="monthlyPayment !== null">
+  <div class="result-container">
     <div class="result-left">
       <p>Monthly Payment</p>
       <h2>£{{ monthlyPayment | number:'1.0-0' }}</h2>
     </div>
+
     <div class="result-right">
-      <p>Borrowing <strong>£{{ mortgageForm.value.purchasePrice - mortgageForm.value.depositAmount | number:'1.0-0' }}</strong> 
-      and repaying over <strong>{{ mortgageForm.value.loanTerm }}</strong> years 
-      with a <strong>{{ mortgageForm.value.interestRate }}%</strong> interest rate.</p>
+      <p>
+        Borrowing 
+        <strong>£{{ getBorrowingAmount() | number:'1.0-0' }}</strong> 
+        and repaying over 
+        {{ mortgageForm.get('loanTerm')?.value || 0 }} years with a 
+        {{ mortgageForm.get('interestRate')?.value || 0 }}% interest rate.
+      </p>
     </div>
   </div>
 </div>

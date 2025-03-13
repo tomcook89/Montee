@@ -1,57 +1,87 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NumberFormatService } from '../../_services/number-format.service';
 
 @Component({
   selector: 'app-mortgage-calculator',
   templateUrl: './mortgage-calculator.component.html',
   styleUrls: ['./mortgage-calculator.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  providers: [DecimalPipe]
+  imports: [CommonModule, ReactiveFormsModule]
 })
-export class MortgageCalculatorComponent {
+export class MortgageCalculatorComponent implements OnInit {
   mortgageForm: FormGroup;
-  monthlyPayment: number | null = null;
-  formattedPlaceholders: { purchasePrice: string; depositAmount: string; interestRate: string; loanTerm: string };
+  monthlyPayment: number = 0;
+  formattedPlaceholders: { [key: string]: string } = {};
 
-  constructor(private fb: FormBuilder, private decimalPipe: DecimalPipe) {
+  constructor(
+    private fb: FormBuilder,
+    private numberFormatService: NumberFormatService
+  ) {
     this.mortgageForm = this.fb.group({
-      purchasePrice: [250000],
-      depositAmount: [50000],
-      interestRate: [5.5],
-      loanTerm: [25]
+      purchasePrice: [250000, [Validators.required]],
+      depositAmount: [50000, [Validators.required]],
+      interestRate: [5.5, [Validators.required]],
+      loanTerm: [25, [Validators.required]]
     });
 
-    this.formattedPlaceholders = {
-      purchasePrice: this.formatNumber(250000),
-      depositAmount: this.formatNumber(50000),
-      interestRate: this.formatNumber(5.5),
-      loanTerm: this.formatNumber(25)
-    };
+    this.formatPlaceholders();
+  }
+
+  ngOnInit(): void {
+    this.formatInitialValues();
+    this.calculateMonthlyPayment();
 
     this.mortgageForm.valueChanges.subscribe(() => {
       this.calculateMonthlyPayment();
+    });
+  }
+
+  private formatPlaceholders() {
+    Object.keys(this.mortgageForm.controls).forEach(field => {
+      const value = this.mortgageForm.get(field)?.value;
+      this.formattedPlaceholders[field] = this.numberFormatService.formatNumber(value);
+    });
+  }
+
+  private formatInitialValues() {
+    Object.keys(this.mortgageForm.controls).forEach(field => {
+      const value = this.mortgageForm.get(field)?.value;
+      if (typeof value === 'number') {
+        this.mortgageForm.patchValue({ [field]: this.numberFormatService.formatNumber(value) }, { emitEvent: false });
+      }
     });
 
     this.calculateMonthlyPayment();
   }
 
   calculateMonthlyPayment() {
-    const { purchasePrice, depositAmount, interestRate, loanTerm } = this.mortgageForm.value;
-    const principal = purchasePrice - depositAmount;
-    const monthlyRate = (interestRate / 100) / 12;
-    const numPayments = loanTerm * 12;
+    const purchasePrice = this.numberFormatService.parseNumber(this.mortgageForm.get('purchasePrice')?.value);
+    const depositAmount = this.numberFormatService.parseNumber(this.mortgageForm.get('depositAmount')?.value);
+    const interestRate = this.numberFormatService.parseNumber(this.mortgageForm.get('interestRate')?.value) / 100;
+    const loanTerm = this.numberFormatService.parseNumber(this.mortgageForm.get('loanTerm')?.value) * 12;
 
-    if (monthlyRate === 0) {
-      this.monthlyPayment = Math.round(principal / numPayments);
-    } else {
-      const factor = Math.pow(1 + monthlyRate, numPayments);
-      this.monthlyPayment = Math.round(principal * (monthlyRate * factor) / (factor - 1));
+    const loanAmount = purchasePrice - depositAmount;
+    if (loanAmount <= 0 || interestRate <= 0 || loanTerm <= 0) {
+      this.monthlyPayment = 0;
+      return;
     }
+
+    const monthlyRate = interestRate / 12;
+    this.monthlyPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -loanTerm));
   }
 
-  formatNumber(value: number): string {
-    return this.decimalPipe.transform(value, '1.0-0') ?? '';
+  getBorrowingAmount(): number {
+    const purchasePrice = this.numberFormatService.parseNumber(this.mortgageForm.get('purchasePrice')?.value);
+    const depositAmount = this.numberFormatService.parseNumber(this.mortgageForm.get('depositAmount')?.value);
+    return purchasePrice - depositAmount;
+  }
+
+  formatInput(event: any, field: string) {
+    const value = this.numberFormatService.parseNumber(event.target.value);
+    this.mortgageForm.patchValue({ [field]: this.numberFormatService.formatNumber(value) }, { emitEvent: false });
+    event.target.value = this.numberFormatService.formatNumber(value);
+    this.calculateMonthlyPayment();
   }
 }

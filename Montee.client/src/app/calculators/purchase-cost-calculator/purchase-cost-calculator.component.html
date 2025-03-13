@@ -2,7 +2,7 @@
   <form [formGroup]="purchaseCostForm">
     <div class="form-container">
       <div class="form-group">
-        <label>Reason for buying property:</label>
+        <label>Reason for Buying Property:</label>
         <select formControlName="reasonForBuying">
           <option value="firstTimeBuyer">First-Time Buyer</option>
           <option value="homeMover">Home Mover</option>
@@ -12,37 +12,37 @@
 
       <div class="form-group">
         <label>Property Price (£):</label>
-        <input type="number" formControlName="propertyPrice" [placeholder]="formattedPlaceholders.propertyPrice">
+        <input type="text" formControlName="propertyPrice" [placeholder]="formattedPlaceholders['propertyPrice']" (input)="formatInput($event, 'propertyPrice')">
       </div>
 
       <div class="form-group">
         <label>Stamp Duty (£):</label>
-        <input type="number" [value]="stampDuty | number:'1.0-0'" disabled>
+        <input type="text" [value]="stampDuty | number:'1.0-0'" disabled>
       </div>
 
       <div class="form-group">
         <label>Mortgage Fees (£):</label>
-        <input type="number" formControlName="mortgageFees" [placeholder]="formattedPlaceholders.mortgageFees">
+        <input type="text" formControlName="mortgageFees" [placeholder]="formattedPlaceholders['mortgageFees']" (input)="formatInput($event, 'mortgageFees')">
       </div>
 
       <div class="form-group">
         <label>Survey Fees (£):</label>
-        <input type="number" formControlName="surveyFees" [placeholder]="formattedPlaceholders.surveyFees">
+        <input type="text" formControlName="surveyFees" [placeholder]="formattedPlaceholders['surveyFees']" (input)="formatInput($event, 'surveyFees')">
       </div>
 
       <div class="form-group">
         <label>Legal Fees (£):</label>
-        <input type="number" formControlName="legalFees" [placeholder]="formattedPlaceholders.legalFees">
+        <input type="text" formControlName="legalFees" [placeholder]="formattedPlaceholders['legalFees']" (input)="formatInput($event, 'legalFees')">
       </div>
 
       <div class="form-group">
         <label>Broker Fees (£):</label>
-        <input type="number" formControlName="brokerFees" [placeholder]="formattedPlaceholders.brokerFees">
+        <input type="text" formControlName="brokerFees" [placeholder]="formattedPlaceholders['brokerFees']" (input)="formatInput($event, 'brokerFees')">
       </div>
 
       <div class="form-group">
         <label>Moving Costs (£):</label>
-        <input type="number" formControlName="movingCosts" [placeholder]="formattedPlaceholders.movingCosts">
+        <input type="text" formControlName="movingCosts" [placeholder]="formattedPlaceholders['movingCosts']" (input)="formatInput($event, 'movingCosts')">
       </div>
     </div>
   </form>

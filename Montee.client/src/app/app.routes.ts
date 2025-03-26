@@ -12,6 +12,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { adminGuard } from './_guards/admin.guard';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -25,7 +27,9 @@ export const routes: Routes = [
             {path: 'lists', component: ListsComponent},
             {path: 'res-mortgages', component: ResMortgagesComponent},
             {path: 'buy-to-let', component: BuyToLetComponent},
-            {path: 'admin', component: AdminPanelComponent, canActivate: [adminGuard]}
+            {path: 'admin', component: AdminPanelComponent, canActivate: [adminGuard]},
+            {path: 'register', component: RegisterComponent},
+            {path: 'login', component: LoginComponent}
         ]
     },
     {path: 'calculators', component: CalculatorsComponent},

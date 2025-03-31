@@ -1,0 +1,27 @@
+<div class="calculator-container">
+    <h1>Landlord Calculators</h1>
+    <p>Use these tools to estimate mortgage, stamp duty, yield, and total purchase costs for buy-to-let properties.</p>
+  
+    <div class="tabs">
+      <button [class.active]="activeTab === 'buyToLet'" (click)="setActiveTab('buyToLet')">Buy to Let Calculator</button>
+      <button [class.active]="activeTab === 'stampDuty'" (click)="setActiveTab('stampDuty')">Stamp Duty Calculator</button>
+      <button [class.active]="activeTab === 'grossYield'" (click)="setActiveTab('grossYield')">Gross Yield Calculator</button>
+      <button [class.active]="activeTab === 'purchaseCost'" (click)="setActiveTab('purchaseCost')">Purchase Cost Calculator</button>
+    </div>
+  
+    <div class="tab-content">
+      @if (activeTab === 'buyToLet') {
+        <app-buy-to-let-calculator></app-buy-to-let-calculator>
+      }
+      <!-- @if (activeTab === 'stampDuty') {
+        <app-stamp-duty-calculator></app-stamp-duty-calculator>
+      } -->
+      @if (activeTab === 'grossYield') {
+        <app-gross-yield-calculator></app-gross-yield-calculator>
+      }
+      <!-- @if (activeTab === 'purchaseCost') {
+        <app-purchase-cost-calculator></app-purchase-cost-calculator>
+      } -->
+    </div>
+  </div>
+  

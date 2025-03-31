@@ -14,6 +14,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { adminGuard } from './_guards/admin.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { LandlordCalculatorsComponent } from './calculators/landlord-calculators/landlord-calculators.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -32,7 +33,8 @@ export const routes: Routes = [
             {path: 'login', component: LoginComponent}
         ]
     },
-    {path: 'calculators', component: CalculatorsComponent},
+    {path: 'buyer-calculators', component: CalculatorsComponent},
+    {path: 'landlord-calculators', component: LandlordCalculatorsComponent},
     {path: 'errors', component: TestErrorsComponent},
     {path: 'not-found', component: NotFoundComponent},
     {path: 'server-error', component: ServerErrorComponent},

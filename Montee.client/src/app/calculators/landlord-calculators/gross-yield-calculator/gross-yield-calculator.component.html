@@ -1,0 +1,28 @@
+<div class="calculator">
+  <form [formGroup]="form">
+    <div class="form-container">
+      <div class="form-group">
+        <label>Annual Rental Income (£):</label>
+        <input type="text"
+               formControlName="annualRent"
+               [placeholder]="formattedPlaceholders['annualRent']"
+               (input)="formatInput('annualRent')">
+      </div>
+
+      <div class="form-group">
+        <label>Property Price (£):</label>
+        <input type="text"
+               formControlName="propertyPrice"
+               [placeholder]="formattedPlaceholders['propertyPrice']"
+               (input)="formatInput('propertyPrice')">
+      </div>
+    </div>
+  </form>
+
+  <div class="result-container">
+    <div class="result-left">
+      <p>Gross Yield</p>
+      <h2>{{ yield | number:'1.1-1' }}%</h2>
+    </div>
+  </div>
+</div>

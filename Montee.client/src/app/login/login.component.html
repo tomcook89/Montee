@@ -2,12 +2,13 @@
     <div class="row justify-content-center">
         <div class="col-4">
             <form #loginForm="ngForm" (ngSubmit)="login()">
+                <h2 class="text-center text-primary">Login</h2>
+                <hr>
+
                 <p class="text-center mb-3">
                     <strong><a class="text-decoration-underline" routerLink="/register">Register</a></strong> for My
                     Montee
                 </p>
-                <h2 class="text-center text-primary">Login</h2>
-                <hr>
 
                 <div class="mb-3 form-floating">
                     <input type="text" class="form-control" name="username" [(ngModel)]="model.username"

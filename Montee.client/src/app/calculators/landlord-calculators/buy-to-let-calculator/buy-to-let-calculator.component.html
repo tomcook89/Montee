@@ -1,0 +1,36 @@
+<div class="calculator">
+  <form [formGroup]="buyToLetForm">
+    <div class="form-container">
+      <div class="form-group">
+        <label>Purchase Price (£):</label>
+        <input type="text"
+               formControlName="purchasePrice"
+               [placeholder]="formattedPlaceholders['purchasePrice']"
+               (input)="formatInput('purchasePrice')">
+      </div>
+
+      <div class="form-group">
+        <label>Mortgage Amount (£):</label>
+        <input type="text"
+               formControlName="mortgageAmount"
+               [placeholder]="formattedPlaceholders['mortgageAmount']"
+               (input)="formatInput('mortgageAmount')">
+      </div>
+    </div>
+  </form>
+
+  <div class="result-container">
+    <div class="result-left">
+      <p>Loan to Value</p>
+      <h2>{{ ltv | number:'1.1-1' }}%</h2>
+    </div>
+
+    <div class="result-right">
+      <p>Rental Income Range</p>
+      <h2>
+        £{{ rentRange.from | number:'1.0-0' }} -
+        £{{ rentRange.to | number:'1.0-0' }}
+      </h2>
+    </div>
+  </div>
+</div>

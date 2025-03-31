@@ -1,0 +1,41 @@
+.calculator-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+  
+    button {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      margin: 0 5px;
+      border-radius: 5px 5px 0 0;
+  
+      &.active {
+        background: #007bff;
+        color: white;
+        border-bottom: none;
+      }
+  
+      &:hover {
+        background: #0056b3;
+        color: white;
+      }
+    }
+  }
+  
+  .tab-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AdminService } from '../../_services/admin.service';
+import { AdminService } from '../../_services/api/admin.service';
 import { User } from '../../_models/user';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.component';

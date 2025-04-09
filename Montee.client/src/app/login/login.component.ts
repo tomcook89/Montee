@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { Router, RouterLink } from '@angular/router';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../_services/api/account.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

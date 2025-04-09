@@ -1,0 +1,67 @@
+<div class="filter-form">
+    <form [formGroup]="filterForm">
+      <div class="row">
+        <label>Purchase Price (£)</label>
+        <input type="text" formControlName="purchasePrice" />
+      </div>
+      <div class="row">
+        <label>Amount to Borrow (£)</label>
+        <input type="text" formControlName="borrowAmount" />
+      </div>
+      <div class="row">
+        <label>Length of Mortgage (Years)</label>
+        <input type="text" formControlName="mortgageLength" />
+      </div>
+  
+      <div class="row">
+        <label>Repayment Type</label>
+        <select formControlName="repaymentType">
+          <option value="repayment">Repayment</option>
+          <option value="interestOnly">Interest Only</option>
+        </select>
+      </div>
+  
+      <div class="row">
+        <label>Mortgage Type</label>
+        @if (filterForm.get('mortgageTypes')) {
+          <div formGroupName="mortgageTypes">
+            <label><input type="checkbox" formControlName="fixed" /> Fixed</label>
+            <label><input type="checkbox" formControlName="variable" /> Variable</label>
+          </div>
+        }
+      </div>
+  
+      <div class="row">
+        <label>Product Period</label>
+        <select formControlName="productPeriod">
+          <option value="any">Any</option>
+          <option value="2">Up to 2 years</option>
+          <option value="3">3 years</option>
+          <option value="5">5 years</option>
+          <option value="10">10 years</option>
+        </select>
+      </div>
+  
+      <div class="row">
+        <label><input type="checkbox" formControlName="offset" /> Offset</label>
+        <label><input type="checkbox" formControlName="noEarlyRepayment" /> No early repayment charge</label>
+      </div>
+  
+      <button type="button" (click)="runSearch()">Refresh Search</button>
+    </form>
+  </div>
+  
+  <div class="results">
+    <p>{{ resultsCount }} mortgages found</p>
+    @for (deal of filteredDeals; track $index) {
+      <div class="mortgage-card">
+        <h3>{{ deal.lender }}</h3>
+        <p>{{ deal.product }}</p>
+        <p>Initial Rate: {{ deal.rate }}</p>
+        <p>Period: {{ deal.period }}</p>
+        <p>APRC: {{ deal.aprc }}</p>
+        <p>Fees: {{ deal.fees }}</p>
+        <p>Monthly Payment: {{ deal.monthlyPayment }}</p>
+      </div>
+    }
+  </div>

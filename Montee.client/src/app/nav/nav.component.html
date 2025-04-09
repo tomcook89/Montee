@@ -5,16 +5,22 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
-          <li class="nav-item">
-            <a routerLink="/res-mortgages" routerLinkActive="active" class="nav-link">Residential Mortgages</a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/buy-to-let" routerLinkActive="active" class="nav-link">Buy to Let</a>
-          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="residentialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Residential Mortgages
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="residentialDropdown">
+            <li><a class="dropdown-item" routerLink="/first-time-buyer-mortgages">First-Time Buyer</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/buy-to-let" routerLinkActive="active" class="nav-link">Buy to Let</a>
+        </li>
         @if (accountService.currentUser()){
-          <li *appHasRole="['Admin']" class="nav-item">
-            <a routerLink="/admin" routerLinkActive="active" class="nav-link">Admin</a>
-          </li>
+        <li *appHasRole="['Admin']" class="nav-item">
+          <a routerLink="/admin" routerLinkActive="active" class="nav-link">Admin</a>
+        </li>
         }
         <li class="nav-item">
           <a routerLink="/errors" routerLinkActive="active" class="nav-link">Errors</a>
@@ -22,39 +28,39 @@
       </ul>
 
       <ul class="navbar-nav">
-        <li class="nav-item dropdown position-static"
-            (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+        <li class="nav-item dropdown position-static" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
           <a class="nav-link" role="button">Calculators</a>
-      
-          <div class="dropdown-menu calculator-dropdown"
-               [ngClass]="{'d-block': showDropdown}"
-               (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+
+          <div class="dropdown-menu calculator-dropdown" [ngClass]="{'d-block': showDropdown}"
+            (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
             <div class="container">
               <div class="row">
                 <div class="col-12">
-                  <a class="dropdown-item" routerLink="/buyer-calculators" routerLinkActive="active" (click)="hideDropdown()">
+                  <a class="dropdown-item" routerLink="/buyer-calculators" routerLinkActive="active"
+                    (click)="hideDropdown()">
                     Buyer Calculators
-                  </a>                  
-                  <a class="dropdown-item" routerLink="/landlord-calculators" routerLinkActive="active" (click)="hideDropdown()">
+                  </a>
+                  <a class="dropdown-item" routerLink="/landlord-calculators" routerLinkActive="active"
+                    (click)="hideDropdown()">
                     Landlord Calculators
-                  </a> 
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </li>
       </ul>
-      
+
       <ul class="navbar-nav">
         @if (!accountService.currentUser()) {
-          <li class="nav-item">
-            <a routerLink="/login" routerLinkActive="active" class="nav-link">My Montee Account</a>
-          </li>
+        <li class="nav-item">
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">My Montee Account</a>
+        </li>
         }
         @if (accountService.currentUser()) {
-          <li class="nav-item">
-            <a (click)="logout()" class="nav-link" role="button">Logout</a>
-          </li>
+        <li class="nav-item">
+          <a (click)="logout()" class="nav-link" role="button">Logout</a>
+        </li>
         }
       </ul>
     </div>

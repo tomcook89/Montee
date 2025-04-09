@@ -15,6 +15,7 @@ import { adminGuard } from './_guards/admin.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LandlordCalculatorsComponent } from './calculators/landlord-calculators/landlord-calculators.component';
+import { FirstTimeBuyerMortgagesComponent } from './res-mortgages/first-time-buyer-mortgages/first-time-buyer-mortgages.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -35,6 +36,7 @@ export const routes: Routes = [
     },
     {path: 'buyer-calculators', component: CalculatorsComponent},
     {path: 'landlord-calculators', component: LandlordCalculatorsComponent},
+    {path: 'first-time-buyer-mortgages', component: FirstTimeBuyerMortgagesComponent},
     {path: 'errors', component: TestErrorsComponent},
     {path: 'not-found', component: NotFoundComponent},
     {path: 'server-error', component: ServerErrorComponent},

@@ -10,7 +10,6 @@ export class CalculatorFormService {
     Object.keys(form.controls).forEach(key => {
       const value = form.get(key)?.value;
   
-      // Skip non-numeric fields like dropdowns
       if (typeof value === 'string' && isNaN(Number(value.replace(/,/g, '')))) return;
   
       const formatted = this.numberFormatService.formatNumber(

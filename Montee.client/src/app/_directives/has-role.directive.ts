@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef, inject } from '@angular/core';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../_services/api/account.service';
 
 @Directive({
   selector: '[appHasRole]', // *appHasRole
